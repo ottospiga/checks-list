@@ -1,7 +1,7 @@
 import Provider  from './providers';
 
 export const metadata = {
-  title: 'Portal de vendas WEG',
+  title: 'check_list',
   description: 'check_list',
   httpEquiv: 'Strict-Transport-Security',
   content: 'max-age=31536000; includeSubDomains; preload'

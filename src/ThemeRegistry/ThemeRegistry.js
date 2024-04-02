@@ -59,12 +59,10 @@ export default function ThemeRegistry({ children }) {
   return (
     <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
       <ColorModeContext.Provider value={colorMode}>
-        {/* <StyledEngineProvider> */}
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-              {children}
-          </ThemeProvider>
-        {/* </StyledEngineProvider> */}
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+            {children}
+        </ThemeProvider>
       </ColorModeContext.Provider>
     </NextAppDirEmotionCacheProvider>
   );
