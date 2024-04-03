@@ -1,69 +1,42 @@
 'use client';
-import * as React from 'react';
-import NextAppDirEmotionCacheProvider from './EmotionCache';
-
+import React, { useMemo, useState } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline, StyledEngineProvider } from '@mui/material';
-import { ColorModeContext } from '@/components/ChangeThemeButtom';
+import { CssBaseline } from '@mui/material';
 
-// import themes from './themes';
+import { ColorModeContext } from '@/components/ChangeThemeButtom';
+import { themesOptions, baseOptions } from "../Global/theme";
+import { THEMES } from "../Global/constants";
 
 export default function ThemeRegistry({ children }) {
-  const [mode, setMode] = React.useState('dark');
-  const colorMode = React.useMemo(
+  // const [mode, setMode] = React.useState('dark');
+  // const colorMode = React.useMemo(
+  //   () => ({ toggleColorMode: () => {
+  //       setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  //       },
+  //     }),
+  //   [],
+  // );
+
+  const [mode, setMode] = useState();
+  const colorMode = useMemo(
     () => ({ toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode((prevMode) => (prevMode !== true));
         },
       }),
       
     [],
   );
+  
+  const themeOptions = themesOptions[mode ? THEMES.DARK : THEMES.LIGHT];
 
-  const theme = React.useMemo(
-    () => createTheme({
-        palette: {
-          mode,
-          
-
-          // ...(mode === 'light'
-          // ? {
-          //     // palette values for light mode
-          //     primary: amber,
-          //     divider: amber[200],
-          //     text: {
-          //       primary: grey[900],
-          //       secondary: grey[800],
-          //     },
-          //   }
-          // : {
-          //     // palette values for dark mode
-          //     primary: deepOrange,
-          //     divider: deepOrange[700],
-          //     background: {
-          //       default: deepOrange[900],
-          //       paper: deepOrange[900],
-          //     },
-          //     text: {
-          //       primary: '#fff',
-          //       secondary: grey[500],
-          //     },
-          //   }),
-
-
-
-        },
-      }),
-    [mode],
-  );
+  const theme = createTheme(baseOptions, themeOptions);
 
   return (
-    <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
-      <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-            {children}
-        </ThemeProvider>
-      </ColorModeContext.Provider>
-    </NextAppDirEmotionCacheProvider>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+          {children}
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }

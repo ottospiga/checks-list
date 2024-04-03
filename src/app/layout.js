@@ -13,7 +13,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <meta httpEquiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload"/>
-      <meta name="google" content="notranslate" />
       <meta name="Content-Security-Policy" value="default-src 'self';" />
       <body suppressHydrationWarning={true} >
         <Provider>
